@@ -2,6 +2,18 @@
 
 // Funktion zur Erstellung der Benachrichtigung
 function createNotification({ title, message, duration }) {
+    // Maximales Zeichenlimit pro Zeile
+    const maxCharsPerLine = 20;
+
+    // Funktion, um den Text in Zeilen mit maximaler Zeichenanzahl aufzuteilen
+    function splitTextIntoLines(text, maxChars) {
+        const lines = [];
+        for (let i = 0; i < text.length; i += maxChars) {
+            lines.push(text.substring(i, i + maxChars));
+        }
+        return lines;
+    }
+
     // Erstelle das Benachrichtigungs-Element
     const notification = document.createElement('div');
     notification.style.position = 'fixed';
@@ -16,11 +28,9 @@ function createNotification({ title, message, duration }) {
     notification.style.display = 'flex';
     notification.style.flexDirection = 'column';
     notification.style.alignItems = 'flex-start';
-    notification.style.gap = '10px';
+    notification.style.gap = '5px'; // Abstand zwischen den Zeilen
     notification.style.transition = 'right 0.5s ease-in-out'; // Gleit-Animation
     notification.style.maxWidth = '300px'; // Maximale Breite der Benachrichtigung
-    notification.style.wordWrap = 'break-word'; // Text umbrechen, wenn er zu lang ist
-    notification.style.whiteSpace = 'normal'; // Text in mehrere Zeilen umbrechen
 
     // Füge den Titel hinzu
     const titleElement = document.createElement('h3');
@@ -30,12 +40,17 @@ function createNotification({ title, message, duration }) {
     titleElement.style.fontWeight = 'bold';
     notification.appendChild(titleElement);
 
-    // Füge den Text hinzu
-    const textElement = document.createElement('p');
-    textElement.textContent = message;
-    textElement.style.margin = '0';
-    textElement.style.fontSize = '14px';
-    notification.appendChild(textElement);
+    // Teile den Nachrichtentext in Zeilen auf
+    const lines = splitTextIntoLines(message, maxCharsPerLine);
+
+    // Füge jede Zeile als separates <p>-Element hinzu
+    lines.forEach(line => {
+        const lineElement = document.createElement('p');
+        lineElement.textContent = line;
+        lineElement.style.margin = '0';
+        lineElement.style.fontSize = '14px';
+        notification.appendChild(lineElement);
+    });
 
     // Füge die Benachrichtigung zum Dokument hinzu
     document.body.appendChild(notification);
