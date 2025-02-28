@@ -3,7 +3,7 @@
 // Funktion zur Erstellung der Benachrichtigung
 function createNotification({ title, message, duration }) {
     // Maximales Zeichenlimit pro Zeile
-    const maxCharsPerLine = 20;
+    const maxCharsPerLine = 50;
 
     // Funktion, um den Text in Zeilen mit maximaler Zeichenanzahl aufzuteilen
     function splitTextIntoLines(text, maxChars) {
