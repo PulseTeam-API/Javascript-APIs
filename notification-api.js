@@ -31,6 +31,7 @@ function createNotification({ title, message, duration }) {
     notification.style.gap = '5px'; // Abstand zwischen den Zeilen
     notification.style.transition = 'right 0.5s ease-in-out'; // Gleit-Animation
     notification.style.maxWidth = '300px'; // Maximale Breite der Benachrichtigung
+    notification.style.position = 'relative'; // Damit der Schließen-Button korrekt positioniert wird
 
     // Füge den Titel hinzu
     const titleElement = document.createElement('h3');
@@ -67,6 +68,41 @@ function createNotification({ title, message, duration }) {
             notification.remove(); // Entferne die Benachrichtigung nach der Animation
         }, 500); // Warte, bis die Animation abgeschlossen ist
     }, duration);
+
+    // Erstelle den Schließen-Button
+    const closeButton = document.createElement('button');
+    closeButton.textContent = '×';
+    closeButton.style.position = 'absolute';
+    closeButton.style.top = '5px';
+    closeButton.style.right = '5px';
+    closeButton.style.background = 'none';
+    closeButton.style.border = 'none';
+    closeButton.style.color = '#fff';
+    closeButton.style.cursor = 'pointer';
+    closeButton.style.fontSize = '16px';
+    closeButton.style.opacity = '0'; // Standardmäßig unsichtbar
+    closeButton.style.transition = 'opacity 0.2s ease-in-out'; // Sanfte Einblendung
+
+    // Zeige den Button, wenn die Benachrichtigung gehovered wird
+    notification.addEventListener('mouseenter', () => {
+        closeButton.style.opacity = '1';
+    });
+
+    // Verstecke den Button, wenn die Maus die Benachrichtigung verlässt
+    notification.addEventListener('mouseleave', () => {
+        closeButton.style.opacity = '0';
+    });
+
+    // Schließe die Benachrichtigung, wenn der Button geklickt wird
+    closeButton.addEventListener('click', () => {
+        notification.style.right = '-400px';
+        setTimeout(() => {
+            notification.remove();
+        }, 500);
+    });
+
+    // Füge den Schließen-Button zur Benachrichtigung hinzu
+    notification.appendChild(closeButton);
 }
 
 // Nachricht in der Konsole, sobald die API geladen wird
