@@ -3,7 +3,7 @@
 // Funktion zur Erstellung der Benachrichtigung
 function createNotification({ title, message, duration }) {
     // Maximales Zeichenlimit pro Zeile
-    const maxCharsPerLine = 50;
+    const maxCharsPerLine = 40; // Erhöht, um mehr Text pro Zeile zu ermöglichen
 
     // Funktion, um den Text in Zeilen mit maximaler Zeichenanzahl aufzuteilen
     function splitTextIntoLines(text, maxChars) {
@@ -21,22 +21,22 @@ function createNotification({ title, message, duration }) {
     notification.style.right = '-400px'; // Startet außerhalb des Bildschirms
     notification.style.backgroundColor = '#333';
     notification.style.color = '#fff';
-    notification.style.padding = '15px';
-    notification.style.borderRadius = '5px';
-    notification.style.boxShadow = '0 0 10px rgba(0, 0, 0, 0.5)';
+    notification.style.padding = '20px'; // Mehr Padding
+    notification.style.borderRadius = '10px'; // Größere abgerundete Ecken
+    notification.style.boxShadow = '0 0 15px rgba(0, 0, 0, 0.7)'; // Stärkerer Schatten
     notification.style.zIndex = '10000';
     notification.style.display = 'flex';
     notification.style.flexDirection = 'column';
     notification.style.alignItems = 'flex-start';
-    notification.style.gap = '5px'; // Abstand zwischen den Zeilen
+    notification.style.gap = '10px'; // Größerer Abstand zwischen den Zeilen
     notification.style.transition = 'right 0.5s ease-in-out'; // Gleit-Animation
-    notification.style.maxWidth = '300px'; // Maximale Breite der Benachrichtigung
+    notification.style.maxWidth = '400px'; // Größere maximale Breite der Benachrichtigung
 
     // Füge den Titel hinzu
     const titleElement = document.createElement('h3');
     titleElement.textContent = title;
     titleElement.style.margin = '0';
-    titleElement.style.fontSize = '16px';
+    titleElement.style.fontSize = '20px'; // Größere Schriftgröße
     titleElement.style.fontWeight = 'bold';
     notification.appendChild(titleElement);
 
@@ -48,7 +48,7 @@ function createNotification({ title, message, duration }) {
         const lineElement = document.createElement('p');
         lineElement.textContent = line;
         lineElement.style.margin = '0';
-        lineElement.style.fontSize = '14px';
+        lineElement.style.fontSize = '16px'; // Größere Schriftgröße
         notification.appendChild(lineElement);
     });
 
