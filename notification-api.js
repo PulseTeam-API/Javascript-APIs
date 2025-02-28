@@ -2,6 +2,8 @@
 
 // Funktion zur Erstellung der Benachrichtigung
 function createNotification({ title, message, duration }) {
+    console.log('createNotification wird aufgerufen.'); // Debugging-Ausgabe
+
     // Maximales Zeichenlimit pro Zeile
     const maxCharsPerLine = 20;
 
@@ -90,6 +92,7 @@ function createNotification({ title, message, duration }) {
 
     // Füge die Benachrichtigung zum Dokument hinzu
     document.body.appendChild(notification);
+    console.log('Benachrichtigung wurde erstellt und hinzugefügt.'); // Debugging-Ausgabe
 
     // Gleite die Benachrichtigung ins Bild
     setTimeout(() => {
