@@ -31,7 +31,7 @@ function createNotification({ title, message, duration }) {
     notification.style.gap = '5px'; // Abstand zwischen den Zeilen
     notification.style.transition = 'right 0.5s ease-in-out'; // Gleit-Animation
     notification.style.maxWidth = '300px'; // Maximale Breite der Benachrichtigung
-    notification.style.position = 'relative'; // Damit der Schließen-Button korrekt positioniert wird
+    notification.style.position = 'relative'; // Wichtig für die Positionierung des Buttons
 
     // Füge den Titel hinzu
     const titleElement = document.createElement('h3');
@@ -52,22 +52,6 @@ function createNotification({ title, message, duration }) {
         lineElement.style.fontSize = '14px';
         notification.appendChild(lineElement);
     });
-
-    // Füge die Benachrichtigung zum Dokument hinzu
-    document.body.appendChild(notification);
-
-    // Gleite die Benachrichtigung ins Bild
-    setTimeout(() => {
-        notification.style.right = '20px'; // Endposition
-    }, 10); // Kurze Verzögerung, damit die Animation ausgelöst wird
-
-    // Gleite die Benachrichtigung nach Ablauf der Zeit wieder hinaus
-    setTimeout(() => {
-        notification.style.right = '-400px'; // Zurück nach rechts außerhalb des Bildschirms
-        setTimeout(() => {
-            notification.remove(); // Entferne die Benachrichtigung nach der Animation
-        }, 500); // Warte, bis die Animation abgeschlossen ist
-    }, duration);
 
     // Erstelle den Schließen-Button
     const closeButton = document.createElement('button');
@@ -103,6 +87,22 @@ function createNotification({ title, message, duration }) {
 
     // Füge den Schließen-Button zur Benachrichtigung hinzu
     notification.appendChild(closeButton);
+
+    // Füge die Benachrichtigung zum Dokument hinzu
+    document.body.appendChild(notification);
+
+    // Gleite die Benachrichtigung ins Bild
+    setTimeout(() => {
+        notification.style.right = '20px'; // Endposition
+    }, 10); // Kurze Verzögerung, damit die Animation ausgelöst wird
+
+    // Gleite die Benachrichtigung nach Ablauf der Zeit wieder hinaus
+    setTimeout(() => {
+        notification.style.right = '-400px'; // Zurück nach rechts außerhalb des Bildschirms
+        setTimeout(() => {
+            notification.remove(); // Entferne die Benachrichtigung nach der Animation
+        }, 500); // Warte, bis die Animation abgeschlossen ist
+    }, duration);
 }
 
 // Nachricht in der Konsole, sobald die API geladen wird
